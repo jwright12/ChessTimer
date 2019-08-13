@@ -7,19 +7,15 @@ import kotlinx.android.synthetic.main.content_main.*
 import android.os.CountDownTimer
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    // White
-    var isPaused = false
-    var isCancelled = false
-    var resume_time: Long = 0
-
-    // Black
+    private var isPaused = false
+    private var isCancelled = false
+    private var resumeFromMillis:Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         var input_time_string: String = ""
         var input_time_long: Long = 0
         var default_interval: Long = 1
-
 
         set_match_time_button.setOnClickListener {
             // Takes the initial input and formats it for display
@@ -51,12 +46,8 @@ class MainActivity : AppCompatActivity() {
 
             // Display the countdown in 00:00:00 format, update buttons, hide irrelevant objects
             format_countdown_text(input_time_long)
-            //format_interface()
-
-            // Once time is set, hide the input text and set button
-            match_time_input.isVisible = false
-            set_match_time_button.isVisible = false
-
+            close_keyboard()
+            format_interface()
         }
 
         restart_game_button.setOnClickListener {
@@ -69,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
         start_white_button.setOnClickListener {
             // Start the countdown timer, update floating action buttons
-            timer_white(input_time_long,default_interval).start()
+            timer_white(input_time_long, default_interval).start()
             it.isEnabled = false
             play_pause_game_button.setImageResource(R.drawable.ic_pause_black_24dp)
             isCancelled = false
@@ -79,36 +70,63 @@ class MainActivity : AppCompatActivity() {
         play_pause_game_button.setOnClickListener {
             // If isEnabled is true, and this button is pushed, it would be to pause the game
             // If isPaused is true, and this button is pushed, it would be to resume the game
-
             isPaused = true
             isCancelled = false
             it.isEnabled = false
+
+            // Change buttons
+            if (isPaused == false) {
+                // Resume from paused state
+                timer_white(resumeFromMillis,default_interval)
+                play_pause_game_button.setImageResource(R.drawable.ic_play_arrow_black_24dp)
+                isPaused = false
+                isCancelled = false
+
+                it.isEnabled = false
 
             }
         }
     }
 
-    private fun format_countdown_text(input_time_long:Long) {
+
+    private fun format_countdown_text(input_time_long: Long) {
         // Format and display the countdown text, close keyboard and input text
         // Convert to hours, minutes, seconds
 
         val hours = (input_time_long / 1000) / 3600
         val minutes = ((input_time_long / 1000) % 3600) / 60
-        val seconds = (input_time_long / 1000 ) % 60
+        val seconds = (input_time_long / 1000) % 60
         val formatted_time: String
 
         if (hours > 0) {
-            formatted_time = String.format(Locale.getDefault(),"%d:%02d:%02d", hours, minutes, seconds)
+            formatted_time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, seconds)
         } else {
-            formatted_time = String.format(Locale.getDefault(),"%02d:%02d", minutes, seconds)
+            formatted_time = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
         }
+
+        countdown_text_white.setText(formatted_time)
     }
 
+    private fun format_interface() {
+        // Once time is set, hide the input text and set button
+        match_time_input.isVisible = false
+        set_match_time_button.isVisible = false
+    }
 
-    private fun timer_white(time:Long, interval:Long):CountDownTimer {
-        return object: CountDownTimer(time, interval) {
+    private fun timer_white(time: Long, interval: Long): CountDownTimer {
+        return object : CountDownTimer(time, interval) {
             override fun onTick(time_to_finish: Long) {
 
+                val timeRemaining = time_to_finish
+
+                if (isPaused) {
+                    resumeFromMillis = time_to_finish
+                    cancel()
+                } else if (isCancelled) {
+                    cancel()
+                } else {
+                    format_countdown_text(timeRemaining)
+                }
             }
 
             override fun onFinish() {
@@ -116,4 +134,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun close_keyboard() {
+        val view = this.currentFocus
+        if (view != null) {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+    }
+
+}
 
