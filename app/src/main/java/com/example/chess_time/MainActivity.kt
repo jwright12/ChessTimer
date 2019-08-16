@@ -62,29 +62,17 @@ class MainActivity : AppCompatActivity() {
             // Start the countdown timer, update floating action buttons
             timer_white(input_time_long, default_interval).start()
             it.isEnabled = false
-            play_pause_game_button.setImageResource(R.drawable.ic_pause_black_24dp)
+            pause_game_button.setImageResource(R.drawable.ic_pause_black_24dp)
             isCancelled = false
             isPaused = false
         }
 
-        play_pause_game_button.setOnClickListener {
-            // If isEnabled is true, and this button is pushed, it would be to pause the game
-            // If isPaused is true, and this button is pushed, it would be to resume the game
+        pause_game_button.setOnClickListener {
             isPaused = true
             isCancelled = false
             it.isEnabled = false
+            pause_game_button.setImageResource(R.drawable.ic_play_arrow_black_24dp)
 
-            // Change buttons
-            if (isPaused == false) {
-                // Resume from paused state
-                timer_white(resumeFromMillis,default_interval)
-                play_pause_game_button.setImageResource(R.drawable.ic_play_arrow_black_24dp)
-                isPaused = false
-                isCancelled = false
-
-                it.isEnabled = false
-
-            }
         }
     }
 
