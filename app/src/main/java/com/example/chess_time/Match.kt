@@ -19,13 +19,6 @@ class Match : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        start_white_button.setOnClickListener {
-            // Print text of countdown timer
-            var matchTime: String = countdown_text_white.text.toString()
-            println(matchTime)
-
         }
-
-    }
 }
 

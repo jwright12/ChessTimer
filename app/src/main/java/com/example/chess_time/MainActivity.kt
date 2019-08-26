@@ -13,9 +13,15 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var isPaused = false
-    private var isCancelled = false
-    private var resumeFromMillis:Long = 0
+    // White clock state variables
+    private var white_isPaused = false
+    private var white_isCancelled = false
+    private var white_resumeFromMillis:Long = 0
+
+    // Black
+    private var black_isPaused = false
+    private var black_isCancelled = false
+    private var black_resumeFromMillis:Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,39 +51,79 @@ class MainActivity : AppCompatActivity() {
             }
 
             // Display the countdown in 00:00:00 format, update buttons, hide irrelevant objects
-            format_countdown_text(input_time_long)
+            format_white_countdown(input_time_long)
+            format_black_countdown(input_time_long)
             close_keyboard()
             format_interface()
+
+            // Enable the black toggle button to start the match
+            black_toggle.isClickable = true
+            Toast.makeText(this@MainActivity, "Black clicks their clock to start", Toast.LENGTH_SHORT).show()
         }
 
         restart_game_button.setOnClickListener {
-            // Activate time setting input and button, clear display countdown text
+
+            // Update both sides clock states and display text/images
+            white_isCancelled = true
+            black_isCancelled = true
+            white_isPaused = false
+            black_isPaused = false
+
+            //it.isEnabled = false
+            pause_resume_game_button.setImageResource(R.drawable.ic_play_arrow_black_24dp)
+
+            black_toggle.setText("00:00")
+            white_toggle.setText("00:00")
+
             match_time_input.isVisible = true
             set_match_time_button.isVisible = true
-            countdown_text_white.setText("00:00")
+        }
+
+        pause_resume_game_button.setOnClickListener {
+
+            // Pause and resume both white and black clocks
+            if (white_isPaused == false && black_isPaused == false) {
+                white_isPaused = true
+                black_isPaused = true
+                pause_resume_game_button.setImageResource(R.drawable.ic_play_arrow_black_24dp)
+            } else {
+                timer_white(white_resumeFromMillis, default_interval).start()
+                timer_black(black_resumeFromMillis, default_interval).start()
+                white_isPaused = false
+                black_isPaused = false
+                pause_resume_game_button.setImageResource(R.drawable.ic_pause_black_24dp)
+            }
 
         }
 
-        start_white_button.setOnClickListener {
-            // Start the countdown timer, update floating action buttons
+        black_toggle.setOnClickListener {
+
+            // start white timer
             timer_white(input_time_long, default_interval).start()
-            it.isEnabled = false
-            pause_game_button.setImageResource(R.drawable.ic_pause_black_24dp)
-            isCancelled = false
-            isPaused = false
+
+            // Update floating action button
+            pause_resume_game_button.setImageResource(R.drawable.ic_pause_black_24dp)
+
+            // Enable white button & disable black
+
         }
 
-        pause_game_button.setOnClickListener {
-            isPaused = true
-            isCancelled = false
-            it.isEnabled = false
-            pause_game_button.setImageResource(R.drawable.ic_play_arrow_black_24dp)
+        white_toggle.setOnClickListener {
+
+            // Pause whites time
+            white_isPaused = true
+            white_isCancelled = false
+
+            // Start blacks clock
+            timer_black(input_time_long, default_interval).start()
+
+            // Enable white button & disable black
 
         }
     }
 
 
-    private fun format_countdown_text(input_time_long: Long) {
+    private fun format_white_countdown(input_time_long: Long) {
         // Format and display the countdown text, close keyboard and input text
         // Convert to hours, minutes, seconds
 
@@ -92,7 +138,32 @@ class MainActivity : AppCompatActivity() {
             formatted_time = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
         }
 
-        countdown_text_white.setText(formatted_time)
+        //white toggle button text
+        white_toggle.setText(formatted_time)
+        white_toggle.textOff = formatted_time
+        white_toggle.textOn = formatted_time
+    }
+
+    private fun format_black_countdown(input_time_long: Long) {
+        // Format and display the countdown text, close keyboard and input text
+        // Convert to hours, minutes, seconds
+
+        val hours = (input_time_long / 1000) / 3600
+        val minutes = ((input_time_long / 1000) % 3600) / 60
+        val seconds = (input_time_long / 1000) % 60
+        val formatted_time: String
+
+        if (hours > 0) {
+            formatted_time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, seconds)
+        } else {
+            formatted_time = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
+        }
+
+        // Set the beginning time for all toggle button states for now. Unless something else makes more sense later.
+        black_toggle.setText(formatted_time)
+        black_toggle.textOff = formatted_time
+        black_toggle.textOn = formatted_time
+
     }
 
     private fun format_interface() {
@@ -103,17 +174,39 @@ class MainActivity : AppCompatActivity() {
 
     private fun timer_white(time: Long, interval: Long): CountDownTimer {
         return object : CountDownTimer(time, interval) {
-            override fun onTick(time_to_finish: Long) {
+            override fun onTick(white_time_to_finish: Long) {
 
-                val timeRemaining = time_to_finish
+                val white_timeRemaining = white_time_to_finish
 
-                if (isPaused) {
-                    resumeFromMillis = time_to_finish
+                if (white_isPaused) {
+                    white_resumeFromMillis = white_time_to_finish
                     cancel()
-                } else if (isCancelled) {
+                } else if (white_isCancelled) {
                     cancel()
                 } else {
-                    format_countdown_text(timeRemaining)
+                    format_white_countdown(white_timeRemaining)
+                }
+            }
+
+            override fun onFinish() {
+                println("Done")
+            }
+        }
+    }
+
+    private fun timer_black(time: Long, interval: Long): CountDownTimer {
+        return object : CountDownTimer(time, interval) {
+            override fun onTick(black_time_to_finish: Long) {
+
+                val black_timeRemaining = black_time_to_finish
+
+                if (black_isPaused) {
+                    black_resumeFromMillis = black_time_to_finish
+                    cancel()
+                } else if (black_isCancelled) {
+                    cancel()
+                } else {
+                    format_black_countdown(black_timeRemaining)
                 }
             }
 

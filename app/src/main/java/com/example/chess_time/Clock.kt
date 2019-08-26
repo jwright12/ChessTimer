@@ -12,9 +12,5 @@ class Clock : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        start_white_button.setOnClickListener {
-            d("start white button", "pressed")
-
         }
-    }
 }
