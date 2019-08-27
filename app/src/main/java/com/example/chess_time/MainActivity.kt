@@ -17,23 +17,25 @@ class MainActivity : AppCompatActivity() {
     private var white_isPaused = false
     private var white_isCancelled = false
     private var white_resumeFromMillis:Long = 0
+    private var white_move_count: Int = 0
 
     // Black
     private var black_isPaused = false
     private var black_isCancelled = false
     private var black_resumeFromMillis:Long = 0
+    private var black_move_count: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Define here, needed by functions
+        // Hold time input by user
         var input_time_string: String = ""
         var input_time_long: Long = 0
         var default_interval: Long = 1
 
+        // Set match time with user input
         set_match_time_button.setOnClickListener {
-            // Takes the initial input and formats it for display
 
             input_time_string = match_time_input.text.toString()
 
@@ -58,6 +60,7 @@ class MainActivity : AppCompatActivity() {
 
             // Enable the black toggle button to start the match
             black_toggle.isClickable = true
+            black_toggle.isChecked = true
             Toast.makeText(this@MainActivity, "Black clicks their clock to start", Toast.LENGTH_SHORT).show()
         }
 
@@ -98,26 +101,84 @@ class MainActivity : AppCompatActivity() {
 
         black_toggle.setOnClickListener {
 
-            // start white timer
-            timer_white(input_time_long, default_interval).start()
+            black_move_count += 1
 
-            // Update floating action button
-            pause_resume_game_button.setImageResource(R.drawable.ic_pause_black_24dp)
+            // On the first click, black is initiating the game for white. The second click should pause blacks turn
+            // and resume whites timer
+            if (black_move_count <= 1) {
 
-            // Enable white button & disable black
+                // Assign blacks beginning time as its resume time here. Otherwise we pass the initial match time to the
+                // countdown object everytime white completes a move.
+                black_resumeFromMillis = input_time_long
+                white_resumeFromMillis = input_time_long
 
+                // start white timer
+                timer_white(white_resumeFromMillis, default_interval).start()
+
+                // Update floating action button
+                pause_resume_game_button.setImageResource(R.drawable.ic_pause_black_24dp)
+
+                // Enable white button & disable black
+                white_toggle.isChecked = true
+                white_toggle.isClickable = true
+                black_toggle.isChecked = false
+                black_toggle.isClickable = false
+            }
+
+            if (black_move_count > 1) {
+
+                timer_white(white_resumeFromMillis, default_interval).start()
+
+                // Now, after blacks first move, we update the state to paused. The first move initiates the game.
+                black_isPaused = true
+                black_isCancelled = false
+
+                // Re enable whites clock state
+                white_isPaused = false
+
+                // Enable white button & disable black
+                white_toggle.isChecked = true
+                white_toggle.isClickable = true
+                black_toggle.isChecked = false
+                black_toggle.isClickable = false
+            }
         }
 
         white_toggle.setOnClickListener {
 
-            // Pause whites time
-            white_isPaused = true
-            white_isCancelled = false
+            // Update move counter
+            white_move_count +=1
 
-            // Start blacks clock
-            timer_black(input_time_long, default_interval).start()
+            if (white_move_count <=1 ) {
 
-            // Enable white button & disable black
+                // Pause whites time
+                white_isPaused = true
+                white_isCancelled = false
+
+                // Start blacks clock
+                timer_black(black_resumeFromMillis, default_interval).start()
+
+                // Enable black button & disable white
+                white_toggle.isChecked = false
+                white_toggle.isClickable = false
+                black_toggle.isChecked = true
+                black_toggle.isClickable = true
+            }
+
+            if (white_move_count > 1) {
+
+                // Start blacks clock
+                timer_black(black_resumeFromMillis, default_interval).start()
+
+                // Resume blacks clock state
+                black_isPaused = false
+
+                // Enable black button & disable white
+                white_toggle.isChecked = false
+                white_toggle.isClickable = false
+                black_toggle.isChecked = true
+                black_toggle.isClickable = true
+            }
 
         }
     }
