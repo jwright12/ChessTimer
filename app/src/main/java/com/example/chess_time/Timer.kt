@@ -9,16 +9,32 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import android.os.CountDownTimer
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlin.concurrent.timer
 
-class Match : AppCompatActivity() {
+@Entity(tableName = "timer_table")
+class Timer(
+    var title: String,
 
-    private var isRunning = false
+    var Duration: Int,
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    var Description: String,
 
-        }
+    var Increment: Long,
+
+    var Delay: Long,
+
+    var Type: String,
+
+    var playCount: Int
+
+) {
+
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
 }
+
+
+
 
