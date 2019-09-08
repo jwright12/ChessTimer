@@ -44,17 +44,20 @@ abstract class TimerDatabase: RoomDatabase() {
                     .execute()
             }
         }
-
     }
 
     class PopulateDbAsyncTask(db: TimerDatabase?) : AsyncTask<Unit, Unit, Unit>() {
         private val timerDao = db?.timerDAO()
 
         override fun doInBackground(vararg p0: Unit?) {
-            timerDao?.insert(Timer("Blitz", 10, "Sudden death, no increment", Increment = 0,
-                Delay = 0, Type = "Blitz", playCount = 0))
-            timerDao?.insert(Timer("Classical", 90, "FIDE classical format", Increment = 0,Delay = 30,
-                Type = "Classical", playCount = 0))
+            timerDao?.insert(Timer("Blitz", 10, 10, incrementWhite = 0, incrementBlack = 0,
+                delayWhite = 0, delayBlack = 0, Type ="Blitz", playCount = 0))
+            timerDao?.insert(Timer("Rapid", 20, 20, incrementWhite = 0, incrementBlack = 0,
+                delayWhite = 0, delayBlack = 0, Type ="Rapid", playCount = 0))
+            timerDao?.insert(Timer("Bullet", 1, 1, incrementWhite = 5, incrementBlack = 5,
+                delayWhite = 2, delayBlack = 2, Type ="Bullet", playCount = 0))
+            timerDao?.insert(Timer("Classical", 60, 60, incrementWhite = 0, incrementBlack = 0,
+                delayWhite = 0, delayBlack = 0, Type ="Classical", playCount = 0))
         }
     }
 }
