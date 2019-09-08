@@ -17,13 +17,17 @@ import kotlin.concurrent.timer
 class Timer(
     var title: String,
 
-    var Duration: Int,
+    var durationWhite: Int,
 
-    var Description: String,
+    var durationBlack: Int,
 
-    var Increment: Long,
+    var incrementWhite: Long,
 
-    var Delay: Long,
+    var incrementBlack: Long,
+
+    var delayWhite: Long,
+
+    var delayBlack: Long,
 
     var Type: String,
 
