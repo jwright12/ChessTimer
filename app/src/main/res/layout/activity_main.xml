@@ -7,35 +7,15 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-    <include layout="@layout/content_main" app:layout_anchorGravity="start|center"
-    />
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/pause_resume_game_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|center"
-            android:layout_margin="@dimen/fab_margin"
-            app:srcCompat="@drawable/ic_play_arrow_black_24dp"
-            android:clickable="false"
-           />
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/timer_card_recycler_view"
+            tools:listitem="@layout/timer_item"
+            tools:itemCount="7"
+    ></androidx.recyclerview.widget.RecyclerView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/restart_game_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|right"
-            android:layout_margin="@dimen/fab_bigger"
-            app:srcCompat="@drawable/ic_restore_black_24dp"/>
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/settings_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_bigger"
-            android:layout_gravity="center|left"
-            app:srcCompat="@drawable/ic_settings_black_24dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
