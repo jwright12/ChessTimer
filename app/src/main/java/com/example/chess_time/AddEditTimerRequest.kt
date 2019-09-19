@@ -1,6 +1,8 @@
 package com.example.chess_time
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 
 class AddEditTimerRequest : AppCompatActivity() {
@@ -24,8 +26,31 @@ class AddEditTimerRequest : AppCompatActivity() {
         setContentView(R.layout.add_edit_timer)
 
 
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
+
     }
 
+    private fun saveTimer() {
+
+        
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.add_edit_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.save_timer -> {
+                saveTimer()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
 
 
