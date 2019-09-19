@@ -1,6 +1,7 @@
 package com.example.chess_time
 
 import android.content.Intent
+import android.app.Activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer
@@ -30,7 +31,6 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-
         // Layout manager handles recycling and dimensions of the recycler view
         timer_card_recycler_view.layoutManager = LinearLayoutManager(this)
         timer_card_recycler_view.setHasFixedSize(true)
@@ -48,8 +48,11 @@ class MainActivity : AppCompatActivity() {
             adapter.submitList(it)
 
         })
-
-
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
 }
 
