@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.add_edit_timer.*
 
 class AddEditTimerRequest : AppCompatActivity() {
 
@@ -25,8 +26,10 @@ class AddEditTimerRequest : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_edit_timer)
 
-
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
+
+        number_picker_priority.minValue = 1
+        number_picker_priority.maxValue = 10
 
     }
 

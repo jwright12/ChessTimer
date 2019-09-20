@@ -3,6 +3,7 @@ package com.example.chess_time
 import android.content.Intent
 import android.app.Activity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -52,6 +53,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == ADD_TIMER_REQUEST && resultCode == Activity.RESULT_OK) {
+
+            // timerViewModel.insert()
+
+            Toast.makeText(this, "Timer saved!", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Timer not saved!", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
 }
