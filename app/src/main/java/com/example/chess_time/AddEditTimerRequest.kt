@@ -25,11 +25,8 @@ class AddEditTimerRequest : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_edit_timer)
-
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
 
-        number_picker_priority.minValue = 1
-        number_picker_priority.maxValue = 10
 
     }
 
@@ -54,9 +51,4 @@ class AddEditTimerRequest : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-
-
-
-
 }
