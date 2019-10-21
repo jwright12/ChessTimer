@@ -3,7 +3,7 @@
 <androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -19,7 +19,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/title_text"
-                android:text="Insert Title"
+                android:hint="Insert Title"
                 android:inputType="text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:layout_alignParentLeft="true"
@@ -29,75 +29,104 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/white_duration_edit_text"
-                android:text="00:00"
+                android:hint="Minutes"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:layout_below="@id/title_text"
                 android:paddingTop="45dp"
-                android:layout_marginLeft="105dp"
+                android:layout_marginLeft="90dp"
                 android:inputType="time"/>
 
         <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/black_duration_edit_text"
-                android:text="00:00"
+                android:hint="Minutes"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:layout_below="@id/title_text"
                 android:layout_alignLeft="@id/white_duration_edit_text"
                 android:paddingTop="45dp"
-                android:layout_marginLeft="105dp"
+                android:layout_marginLeft="90dp"
                 android:inputType="time"/>
 
         <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/white_increment_edit_text"
-                android:text="00:00"
+                android:hint="Seconds"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:layout_below="@id/white_duration_edit_text"
                 android:paddingTop="45dp"
-                android:layout_marginLeft="105dp"
+                android:layout_marginLeft="90dp"
                 android:inputType="time"/>
 
         <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/black_increment_edit_text"
-                android:text="00:00"
+                android:hint="Seconds"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:layout_below="@id/black_duration_edit_text"
                 android:layout_alignLeft="@id/white_increment_edit_text"
                 android:paddingTop="45dp"
-                android:layout_marginLeft="105dp"
+                android:layout_marginLeft="90dp"
                 android:inputType="time"/>
 
         <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/white_delay_edit_text"
-                android:text="00:00"
+                android:hint="Seconds"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:layout_below="@id/white_increment_edit_text"
                 android:paddingTop="45dp"
-                android:layout_marginLeft="105dp"
+                android:layout_marginLeft="90dp"
                 android:inputType="time"/>
 
         <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/black_delay_edit_text"
-                android:text="00:00"
+                android:hint="Seconds"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:layout_below="@id/black_increment_edit_text"
                 android:layout_alignLeft="@id/white_delay_edit_text"
                 android:paddingTop="45dp"
-                android:layout_marginLeft="105dp"
+                android:layout_marginLeft="90dp"
                 android:inputType="time"/>
+
+        <TextView
+                android:id="@+id/match_time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/white_duration_edit_text"
+                android:layout_marginLeft="143dp"
+                android:layout_marginBottom="-37dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Match Time" />
+
+        <TextView
+                android:id="@+id/increment_time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/white_increment_edit_text"
+                android:layout_marginLeft="145dp"
+                android:layout_marginBottom="-37dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Increment" />
+
+        <TextView
+                android:id="@+id/delay_time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/white_delay_edit_text"
+                android:layout_marginLeft="160dp"
+                android:layout_marginBottom="-37dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Delay" />
 
 
     </RelativeLayout>
-
-
-
-
 </androidx.cardview.widget.CardView>
