@@ -21,13 +21,13 @@ class Timer(
 
     var durationBlack: Int,
 
-    var incrementWhite: Long,
+    var incrementWhite: Int,
 
-    var incrementBlack: Long,
+    var incrementBlack: Int,
 
-    var delayWhite: Long,
+    var delayWhite: Int,
 
-    var delayBlack: Long,
+    var delayBlack: Int,
 
     var Type: String,
 
