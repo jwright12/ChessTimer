@@ -13,10 +13,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    // Differentiates between the activity results of the add/edit timer class
     companion object {
         const val ADD_TIMER_REQUEST = 1
         const val EDIT_TIMER_REQUEST = 2
     }
+
     private lateinit var timerViewModel: TimerViewModel
 
 
@@ -51,12 +53,32 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+
+
+    // Receives data from add/edit activity and differentiates the response
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == ADD_TIMER_REQUEST && resultCode == Activity.RESULT_OK) {
+            val type = "Blitz"
+            val playCount = 0
 
-            // timerViewModel.insert()
+
+
+            val newTimer = Timer(
+                // !! Ensures data is not null
+                data!!.getStringExtra(AddEditTimerRequest.EXTRA_TITLE),
+                data.getIntExtra(AddEditTimerRequest.EXTRA_TIME, 5),
+                data.getIntExtra(AddEditTimerRequest.EXTRA_TIME, 5),
+                data.getIntExtra(AddEditTimerRequest.EXTRA_INC, 5),
+                data.getIntExtra(AddEditTimerRequest.EXTRA_INC, 5),
+                data.getIntExtra(AddEditTimerRequest.EXTRA_DELAY, 5),
+                data.getIntExtra(AddEditTimerRequest.EXTRA_DELAY, 5),
+                type,
+                playCount
+            )
+
+            timerViewModel.insert(newTimer)
 
             Toast.makeText(this, "Timer saved!", Toast.LENGTH_SHORT).show()
         } else {
