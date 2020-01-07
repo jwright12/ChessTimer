@@ -26,79 +26,44 @@
                 android:maxLines="1" android:ellipsize="end"/>
 
         <EditText
+                android:id="@+id/duration_edit_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/white_duration_edit_text"
-                android:hint="Minutes"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:layout_below="@id/title_text"
-                android:paddingTop="45dp"
-                android:layout_marginLeft="90dp"
-                android:inputType="number"/>
-
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/black_duration_edit_text"
+                android:layout_marginLeft="138dp"
+                android:layout_marginTop="0dp"
                 android:hint="Minutes"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:layout_below="@id/title_text"
-                android:layout_alignLeft="@id/white_duration_edit_text"
+                android:inputType="number"
                 android:paddingTop="45dp"
-                android:layout_marginLeft="90dp"
-                android:inputType="number"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <EditText
+                android:id="@+id/increment_edit_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/white_increment_edit_text"
+                android:layout_below="@id/duration_edit_text"
+                android:layout_marginLeft="135dp"
                 android:hint="Seconds"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:layout_below="@id/white_duration_edit_text"
+                android:inputType="number"
                 android:paddingTop="45dp"
-                android:layout_marginLeft="90dp"
-                android:inputType="number"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <EditText
+                android:id="@+id/delay_edit_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/black_increment_edit_text"
+                android:layout_below="@id/increment_edit_text"
+                android:layout_marginLeft="135dp"
                 android:hint="Seconds"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:layout_below="@id/black_duration_edit_text"
-                android:layout_alignLeft="@id/white_increment_edit_text"
+                android:inputType="number"
                 android:paddingTop="45dp"
-                android:layout_marginLeft="90dp"
-                android:inputType="number"/>
-
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/white_delay_edit_text"
-                android:hint="Seconds"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:layout_below="@id/white_increment_edit_text"
-                android:paddingTop="45dp"
-                android:layout_marginLeft="90dp"
-                android:inputType="number"/>
-
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/black_delay_edit_text"
-                android:hint="Seconds"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:layout_below="@id/black_increment_edit_text"
-                android:layout_alignLeft="@id/white_delay_edit_text"
-                android:paddingTop="45dp"
-                android:layout_marginLeft="90dp"
-                android:inputType="number"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <TextView
                 android:id="@+id/match_time_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/white_duration_edit_text"
+                android:layout_above="@id/duration_edit_text"
                 android:layout_marginLeft="143dp"
                 android:layout_marginBottom="-37dp"
                 android:ellipsize="end"
@@ -109,7 +74,7 @@
                 android:id="@+id/increment_time_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/white_increment_edit_text"
+                android:layout_above="@id/increment_edit_text"
                 android:layout_marginLeft="145dp"
                 android:layout_marginBottom="-37dp"
                 android:ellipsize="end"
@@ -120,7 +85,7 @@
                 android:id="@+id/delay_time_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/white_delay_edit_text"
+                android:layout_above="@id/delay_edit_text"
                 android:layout_marginLeft="160dp"
                 android:layout_marginBottom="-37dp"
                 android:ellipsize="end"

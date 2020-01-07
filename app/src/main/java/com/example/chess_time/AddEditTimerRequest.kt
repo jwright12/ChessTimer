@@ -65,7 +65,6 @@ class AddEditTimerRequest : AppCompatActivity() {
 
         val data = Intent().apply {  }
 
-
     }
 
 
