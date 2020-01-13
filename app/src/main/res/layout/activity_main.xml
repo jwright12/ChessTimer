@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:id="@+id/timer_card_recycler_view"
             tools:listitem="@layout/timer_item"
-            tools:itemCount="7"
+            tools:itemCount="5"
     ></androidx.recyclerview.widget.RecyclerView>
 
 

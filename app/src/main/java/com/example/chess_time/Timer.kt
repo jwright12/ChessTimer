@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
 import android.os.CountDownTimer
 import androidx.room.Entity
 import androidx.room.PrimaryKey

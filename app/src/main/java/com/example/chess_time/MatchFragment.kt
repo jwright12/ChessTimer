@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
-import kotlinx.android.synthetic.main.content_main.*
+
 import java.util.*
 
 class MatchFragment {

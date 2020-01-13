@@ -23,6 +23,7 @@ class TimerAdapter : ListAdapter<Timer, TimerAdapter.TimerHolder> (DIFF_CALLBACK
         }
     }
 
+    // Member variable for forwarding Timer objects in implementation
     private var listener: OnItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimerHolder {
@@ -51,6 +52,9 @@ class TimerAdapter : ListAdapter<Timer, TimerAdapter.TimerHolder> (DIFF_CALLBACK
     // Holds a reference to each item in a recycler view
     inner class TimerHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        // Constructor assigns view listener we set up below
+        // Listener has access to interface which forwards a timer object
+        // We use adapter position to distinguish which card view was clicked
         init {
             itemView.setOnClickListener {
                 val position = adapterPosition
@@ -72,10 +76,13 @@ class TimerAdapter : ListAdapter<Timer, TimerAdapter.TimerHolder> (DIFF_CALLBACK
 
     }
 
+    // Allows us to provide a timer object and forward data to the implementation in main
     interface OnItemClickListener {
         fun onItemClick(timer: Timer)
     }
 
+    // References interface, giving listener access to OnItemClick, therefore access in implementation
+    // We 'catch' the click here
     fun setOnItemClickListener(listener: OnItemClickListener) {
         this.listener = listener
     }

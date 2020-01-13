@@ -3,6 +3,7 @@ package com.example.chess_time
 import android.content.Intent
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer
@@ -51,9 +52,22 @@ class MainActivity : AppCompatActivity() {
             adapter.submitList(it)
 
         })
+
+        // Assign adapter click listener from TimerAdapter
+        adapter.setOnItemClickListener(object: TimerAdapter.OnItemClickListener {
+            override fun onItemClick(timer: Timer) {
+                // Store extras in intent
+                var intent = Intent(baseContext, MatchActivity::class.java)
+                intent.putExtra(MatchActivity.EXTRA_TIME, timer.durationWhite)
+                intent.putExtra(MatchActivity.EXTRA_DELAY, timer.delayWhite)
+                intent.putExtra(MatchActivity.EXTRA_INC , timer.incrementWhite)
+
+                // Start Match activity and pass this intent
+                startActivity(intent)
+                finish()
+            }
+        })
     }
-
-
 
     // Receives data from add/edit activity and differentiates the response
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -62,8 +76,6 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == ADD_TIMER_REQUEST && resultCode == Activity.RESULT_OK) {
             val type = "Blitz"
             val playCount = 0
-
-
 
             val newTimer = Timer(
                 // !! Ensures data is not null
