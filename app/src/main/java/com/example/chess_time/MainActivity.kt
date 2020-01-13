@@ -64,7 +64,6 @@ class MainActivity : AppCompatActivity() {
 
                 // Start Match activity and pass this intent
                 startActivity(intent)
-                finish()
             }
         })
     }

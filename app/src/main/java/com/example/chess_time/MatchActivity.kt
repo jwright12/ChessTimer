@@ -16,13 +16,16 @@ class MatchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_match)
 
-        //val stringOne = intent.getIntExtra(EXTRA_TIME,150)
-
         val extras = getIntent().getExtras()
         if (null != extras) {
-            val value = extras.getInt(EXTRA_TIME)
+            val time = extras.getInt(EXTRA_TIME)
+            val inc = extras.getInt(EXTRA_INC)
+            val delay = extras.getInt(EXTRA_DELAY)
+
             //The key argument here must match that used in the other activity
-            match_duration_text_view.setText(value.toString())
+            match_duration_text_view.setText(time.toString())
+            match_increment_text_view.setText(inc.toString())
+            match_delay_text_view.setText(delay.toString())
         }
     }
 
