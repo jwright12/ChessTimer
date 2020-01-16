@@ -44,6 +44,7 @@ class TimerAdapter : ListAdapter<Timer, TimerAdapter.TimerHolder> (DIFF_CALLBACK
         holder.textViewBlackDelay.text = currentTimer.delayBlack.toString()
     }
 
+    // Returns Timer object at the specified position
     fun getTimerAt(position: Int): Timer {
         return getItem(position)
     }
