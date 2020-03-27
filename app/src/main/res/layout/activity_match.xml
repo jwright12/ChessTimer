@@ -4,35 +4,357 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:rotation="0"
+        android:id="@+id/constraint_view"
         tools:context=".MatchActivity">
 
+    <androidx.cardview.widget.CardView
+            android:id="@+id/white_time_cardview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="15dp"
+            android:clickable="false"
+            app:cardBackgroundColor="#00FFFFFF"
+            app:layout_constraintBottom_toBottomOf="@id/white_tile_image"
+            app:layout_constraintHeight_percent=".14"
+            app:layout_constraintStart_toStartOf="@id/white_tile_image"
+            app:layout_constraintWidth_percent=".5">
 
-    <TextView
-            android:id="@+id/match_duration_text_view"
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/white_child_constraint"
+            >
+
+                <TextView
+                        android:id="@+id/white_duration_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:background="@drawable/match_display_header"
+                        app:layout_constraintBottom_toTopOf="@id/white_duration"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintHeight_percent=".3"
+                        />
+
+                <ImageView
+                        android:id="@+id/white_increment_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        app:layout_constraintWidth_percent=".03"
+                        app:layout_constraintHeight_percent=".14"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/increment"
+                        app:layout_constraintStart_toStartOf="@id/white_duration_header"
+                        app:layout_constraintBottom_toBottomOf="@id/white_duration_header"
+                    />
+
+                <TextView
+                        android:id="@+id/white_increment_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        app:layout_constraintWidth_percent=".03"
+                        app:layout_constraintHeight_percent=".18"
+                        android:layout_marginLeft="6dp"
+                        android:autoSizeTextType='uniform'
+                        app:layout_constraintLeft_toRightOf="@id/white_increment_icon"
+                        app:layout_constraintBottom_toBottomOf="@id/white_duration_header"
+                        android:fontFamily="@font/monaco"
+                        android:textColor="#DBDBDB"
+                        android:scaleType="fitXY"
+                        />
+
+
+            <ImageView
+                    android:id="@+id/white_delay_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    app:layout_constraintHeight_percent=".14"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="12dp"
+                    android:background="@drawable/pause_icon"
+                    app:layout_constraintLeft_toRightOf="@id/white_increment_text"
+                    app:layout_constraintBottom_toBottomOf="@id/white_duration_header"
+                    />
+
+
+            <TextView
+                    android:id="@+id/white_delay_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    app:layout_constraintWidth_percent=".03"
+                    app:layout_constraintHeight_percent=".18"
+                    android:layout_marginLeft="6dp"
+                    android:autoSizeTextType='uniform'
+                    app:layout_constraintLeft_toRightOf="@id/white_delay_icon"
+                    app:layout_constraintBottom_toBottomOf="@id/white_duration_header"
+                    android:fontFamily="@font/monaco"
+                    android:textColor="#DBDBDB"
+                    android:scaleType="fitXY"
+                    />
+
+            <TextView
+                    android:id="@+id/white_moves_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    app:layout_constraintHeight_percent=".14"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginBottom="3dp"
+                    android:autoSizeTextType='uniform'
+                    app:layout_constraintLeft_toRightOf="@id/white_delay_text"
+                    app:layout_constraintBottom_toBottomOf="@id/white_duration_header"
+                    android:fontFamily="@font/monaco"
+                    android:text="Moves: 0 "
+                    android:textColor="#DBDBDB"
+                    android:scaleType="fitXY"
+                    />
+
+
+                <TextView
+                        android:id="@+id/white_duration"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintHeight_percent=".7"
+                        android:autoSizeTextType='uniform'
+                        android:background="@drawable/match_display_time"
+                        android:elevation="3dp"
+                        android:fontFamily="@font/monaco"
+                        android:gravity="center"
+                        android:padding="15dp"
+                        android:scaleType="fitXY"
+                        android:textColor="#DBDBDB"
+                        />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+            android:id="@+id/black_time_cardview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:rotation="180"
+            android:clickable="false"
+            app:cardBackgroundColor="#00FFFFFF"
+            app:layout_constraintTop_toTopOf="@id/black_tile_image"
+            app:layout_constraintHeight_percent=".14"
+            app:layout_constraintEnd_toEndOf="@id/black_tile_image"
+            app:layout_constraintWidth_percent=".5">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/black_child_constraint"
+                >
+
+            <TextView
+                    android:id="@+id/black_duration_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@drawable/match_display_header"
+                    app:layout_constraintBottom_toTopOf="@id/black_duration"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHeight_percent=".3"
+                    />
+
+            <ImageView
+                    android:id="@+id/black_increment_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    app:layout_constraintWidth_percent=".03"
+                    app:layout_constraintHeight_percent=".14"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/increment"
+                    app:layout_constraintStart_toStartOf="@id/black_duration_header"
+                    app:layout_constraintBottom_toBottomOf="@id/black_duration_header"
+                    />
+
+            <TextView
+                    android:id="@+id/black_increment_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    app:layout_constraintWidth_percent=".03"
+                    app:layout_constraintHeight_percent=".18"
+                    android:layout_marginLeft="6dp"
+                    android:autoSizeTextType='uniform'
+                    app:layout_constraintLeft_toRightOf="@id/black_increment_icon"
+                    app:layout_constraintBottom_toBottomOf="@id/black_duration_header"
+                    android:fontFamily="@font/monaco"
+                    android:textColor="#DBDBDB"
+                    android:scaleType="fitXY"
+                    />
+
+
+            <ImageView
+                    android:id="@+id/black_delay_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    app:layout_constraintHeight_percent=".14"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="12dp"
+                    android:background="@drawable/pause_icon"
+                    app:layout_constraintLeft_toRightOf="@id/black_increment_text"
+                    app:layout_constraintBottom_toBottomOf="@id/black_duration_header"
+                    />
+
+
+            <TextView
+                    android:id="@+id/black_delay_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    app:layout_constraintWidth_percent=".03"
+                    app:layout_constraintHeight_percent=".18"
+                    android:layout_marginLeft="6dp"
+                    android:autoSizeTextType='uniform'
+                    app:layout_constraintLeft_toRightOf="@id/black_delay_icon"
+                    app:layout_constraintBottom_toBottomOf="@id/black_duration_header"
+                    android:fontFamily="@font/monaco"
+                    android:textColor="#DBDBDB"
+                    android:scaleType="fitXY"
+                    />
+
+            <TextView
+                    android:id="@+id/black_moves_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    app:layout_constraintHeight_percent=".14"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginBottom="3dp"
+                    android:autoSizeTextType='uniform'
+                    app:layout_constraintLeft_toRightOf="@id/black_delay_text"
+                    app:layout_constraintBottom_toBottomOf="@id/black_duration_header"
+                    android:fontFamily="@font/monaco"
+                    android:text="Moves: 0 "
+                    android:textColor="#DBDBDB"
+                    android:scaleType="fitXY"
+                    />
+
+
+            <TextView
+                    android:id="@+id/black_duration"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHeight_percent=".7"
+                    android:autoSizeTextType='uniform'
+                    android:background="@drawable/match_display_time"
+                    android:elevation="3dp"
+                    android:fontFamily="@font/monaco"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:scaleType="fitXY"
+                    android:textColor="#DBDBDB"
+                    />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+            android:id="@+id/black_tile_image"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clickable="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/black_tile"
+            app:layout_constraintHeight_percent=".5"
+            app:layout_constraintTop_toTopOf="parent"
+            android:soundEffectsEnabled="false"
+            />
+
+    <ImageView
+            android:id="@+id/white_tile_image"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clickable="false"
+            android:scaleType="fitXY"
+            android:src="@drawable/white_tile"
+            app:layout_constraintHeight_percent=".5"
+            app:layout_constraintTop_toBottomOf="@+id/black_tile_image"
+            android:soundEffectsEnabled="false"
+            />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fab_layout_paused"
+            android:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/white_tile_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-            android:id="@+id/match_increment_text_view"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/play_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="55dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_play_arrow_grey_26dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/close_button"
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/play_button"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_close_grey_24dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/reset_button"
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="7dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/play_button"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_restore_grey_26dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/rotate_button"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="7dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/reset_button"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_rotate_grey_24dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/pause_button"
+            android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-            android:id="@+id/match_delay_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_pause_black_26dp"
+            />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+
+

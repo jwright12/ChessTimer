@@ -3,7 +3,7 @@ package com.example.chess_time
 import android.content.Intent
 import android.app.Activity
 import android.os.Bundle
-import android.util.Log
+import android.view.Menu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer
@@ -82,7 +82,6 @@ class MainActivity : AppCompatActivity() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 timerViewModel.delete(adapter.getTimerAt(viewHolder.adapterPosition))
             }
-
         }).attachToRecyclerView(timer_card_recycler_view)
 
     }
@@ -110,11 +109,16 @@ class MainActivity : AppCompatActivity() {
 
             timerViewModel.insert(newTimer)
 
-            Toast.makeText(this, "Timer saved!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Timer saved", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(this, "Timer not saved!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Timer abandoned", Toast.LENGTH_SHORT).show()
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
     }
 
 }

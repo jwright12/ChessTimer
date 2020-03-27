@@ -26,7 +26,7 @@ class AddEditTimerRequest : AppCompatActivity() {
         // Assigns layout from resource folder
         setContentView(R.layout.add_edit_timer)
         // Sets icon in left menu corner to the close icon
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close_grey_24dp)
 
         if (intent.hasExtra(EXTRA_ID)) {
             // If the intent was already assigned an ID, we know we are trying to edit an existing timer
@@ -42,10 +42,6 @@ class AddEditTimerRequest : AppCompatActivity() {
         } else {
             title = "Create New Match"
         }
-
-
-
-
     }
 
     private fun saveTimer() {
@@ -67,9 +63,7 @@ class AddEditTimerRequest : AppCompatActivity() {
         }
 
 
-        // Creating a object to return to the main activity. Main activity started intent for result
-        // This is it
-        // Uses the extras defined above
+        // Convert user input here into miliseconds for CountDownTimer in Match Activity
 
         val data = Intent().apply {
             putExtra(EXTRA_TITLE, title_text.text.toString())

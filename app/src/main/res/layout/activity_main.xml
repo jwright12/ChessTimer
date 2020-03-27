@@ -24,8 +24,4 @@
             tools:listitem="@layout/timer_item"
             tools:itemCount="5"
     ></androidx.recyclerview.widget.RecyclerView>
-
-
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
