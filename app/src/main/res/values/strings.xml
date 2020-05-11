@@ -6,4 +6,8 @@
     <string name="black_move_count">0</string>
     <string name="white_move_count">0</string>
     <string name="move_count_header">Move: </string>
+    <string name="match_name">Match Name</string>
+    <string name="same_for_black">Same for Black?</string>
+    <string name="save">Ok</string>
+    <string name="cancel">Cancel</string>
 </resources>

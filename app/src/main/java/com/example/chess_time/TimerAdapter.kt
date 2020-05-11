@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.timer_item.view.*
+import java.util.*
 
 class TimerAdapter : ListAdapter<Timer, TimerAdapter.TimerHolder> (DIFF_CALLBACK){
 
@@ -33,15 +34,13 @@ class TimerAdapter : ListAdapter<Timer, TimerAdapter.TimerHolder> (DIFF_CALLBACK
 
     override fun onBindViewHolder(holder: TimerHolder, position: Int) {
         val currentTimer: Timer = getItem(position)
-
         holder.textViewMatchTitle.text = currentTimer.title
-        holder.textViewMatchType.text = currentTimer.Type
-        holder.textViewWhiteDuration.text = currentTimer.durationWhite.toString()
-        holder.textViewBlackDuration.text = currentTimer.durationBlack.toString()
-        holder.textViewWhiteIncrement.text = currentTimer.incrementWhite.toString()
-        holder.textViewBlackIncrement.text = currentTimer.incrementBlack.toString()
-        holder.textViewWhiteDelay.text = currentTimer.delayWhite.toString()
-        holder.textViewBlackDelay.text = currentTimer.delayBlack.toString()
+        holder.textViewWhiteDuration.text = pretty_print(currentTimer.durationWhite)
+        holder.textViewBlackDuration.text = pretty_print(currentTimer.durationBlack)
+        holder.textViewWhiteIncrement.text = pretty_print(currentTimer.incrementWhite)
+        holder.textViewBlackIncrement.text = pretty_print(currentTimer.incrementBlack)
+        holder.textViewWhiteDelay.text = pretty_print(currentTimer.delayWhite)
+        holder.textViewBlackDelay.text = pretty_print(currentTimer.delayBlack)
     }
 
     // Returns Timer object at the specified position
@@ -67,7 +66,6 @@ class TimerAdapter : ListAdapter<Timer, TimerAdapter.TimerHolder> (DIFF_CALLBACK
 
         // Grab the attributes from our timer_item.xml file
         var textViewMatchTitle: TextView = itemView.match_title_text_view
-        var textViewMatchType: TextView = itemView.match_type_text_view
         var textViewWhiteDuration: TextView = itemView.white_duration_text_view
         var textViewBlackDuration: TextView = itemView.black_duration_text_view
         var textViewWhiteIncrement: TextView = itemView.white_increment_text_view
@@ -86,5 +84,23 @@ class TimerAdapter : ListAdapter<Timer, TimerAdapter.TimerHolder> (DIFF_CALLBACK
     // We 'catch' the click here
     fun setOnItemClickListener(listener: OnItemClickListener) {
         this.listener = listener
+    }
+
+    fun pretty_print (time: Int): String {
+        val hours = time / 3600000
+        var minutes = (time/1000) / 60
+        val seconds = (time/1000) % 60
+        val formatted_time: String
+
+        if (hours > 0) {
+            if(minutes == 60) minutes = 0
+            formatted_time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, seconds)
+        } else if (minutes > 0){
+            formatted_time = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
+        } else {
+            formatted_time = String.format(Locale.getDefault(), "%02d"+"s", seconds)
+        }
+
+        return formatted_time
     }
 }

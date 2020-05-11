@@ -97,13 +97,12 @@ class MainActivity : AppCompatActivity() {
             val newTimer = Timer(
                 // !! Ensures data is not null
                 data!!.getStringExtra(AddEditTimerRequest.EXTRA_TITLE),
-                data.getIntExtra(AddEditTimerRequest.EXTRA_TIME, 5),
-                data.getIntExtra(AddEditTimerRequest.EXTRA_TIME, 5),
-                data.getIntExtra(AddEditTimerRequest.EXTRA_INC, 5),
-                data.getIntExtra(AddEditTimerRequest.EXTRA_INC, 5),
-                data.getIntExtra(AddEditTimerRequest.EXTRA_DELAY, 5),
-                data.getIntExtra(AddEditTimerRequest.EXTRA_DELAY, 5),
-                type,
+                data.getIntExtra(AddEditTimerRequest.EXTRA_WTIME, 5),
+                data.getIntExtra(AddEditTimerRequest.EXTRA_BTIME, 5),
+                data.getIntExtra(AddEditTimerRequest.EXTRA_WINC, 5),
+                data.getIntExtra(AddEditTimerRequest.EXTRA_BINC, 5),
+                data.getIntExtra(AddEditTimerRequest.EXTRA_WDELAY, 5),
+                data.getIntExtra(AddEditTimerRequest.EXTRA_BDELAY, 5),
                 playCount
             )
 

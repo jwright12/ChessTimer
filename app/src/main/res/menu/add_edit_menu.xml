@@ -5,7 +5,7 @@
             android:id="@+id/save_timer"
             android:icon="@drawable/ic_save"
             android:title="save"
-            app:showAsAction="ifRoom">
+            app:showAsAction = "always">
     </item>
 
 </menu>

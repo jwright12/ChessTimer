@@ -28,8 +28,6 @@ class Timer(
 
     var delayBlack: Int,
 
-    var Type: String,
-
     var playCount: Int
 
 ) {

@@ -50,14 +50,14 @@ abstract class TimerDatabase: RoomDatabase() {
         private val timerDao = db?.timerDAO()
 
         override fun doInBackground(vararg p0: Unit?) {
-            timerDao?.insert(Timer("Blitz", 10, 10, incrementWhite = 0, incrementBlack = 0,
-                delayWhite = 0, delayBlack = 0, Type ="Blitz", playCount = 0))
-            timerDao?.insert(Timer("Rapid", 20, 20, incrementWhite = 0, incrementBlack = 0,
-                delayWhite = 0, delayBlack = 0, Type ="Rapid", playCount = 0))
-            timerDao?.insert(Timer("Bullet", 1, 1, incrementWhite = 5, incrementBlack = 5,
-                delayWhite = 2, delayBlack = 2, Type ="Bullet", playCount = 0))
-            timerDao?.insert(Timer("Classical", 60, 60, incrementWhite = 0, incrementBlack = 0,
-                delayWhite = 0, delayBlack = 0, Type ="Classical", playCount = 0))
+            timerDao?.insert(Timer("Blitz", 600000, 600000, incrementWhite = 0, incrementBlack = 0,
+                delayWhite = 0, delayBlack = 0,  playCount = 0))
+            timerDao?.insert(Timer("Rapid", 1200000, 1200000, incrementWhite = 0, incrementBlack = 0,
+                delayWhite = 0, delayBlack = 0,  playCount = 0))
+            timerDao?.insert(Timer("Bullet", 60000, 60000, incrementWhite = 5000, incrementBlack = 5000,
+                delayWhite = 2, delayBlack = 2,  playCount = 0))
+            timerDao?.insert(Timer("Classical", 3600000, 3600000, incrementWhite = 0, incrementBlack = 0,
+                delayWhite = 0, delayBlack = 0,  playCount = 0))
         }
     }
 }
