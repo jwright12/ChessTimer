@@ -257,12 +257,13 @@ class AddEditTimerRequest : AppCompatActivity(), MatchTimePicker.NoticeDialogLis
     }
 
     fun pretty_print (time: Int): String {
-        val hours = (time/1000) / 3600
-        val minutes = (time/1000) / 60
+        val hours = time / 3600000
+        var minutes = time / 60000
         val seconds = (time/1000) % 60
         val formatted_time: String
 
-        if (hours > 0) {
+        if (hours >= 1) {
+            if (minutes >= 60) minutes = minutes % 60
             formatted_time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, seconds)
         } else if (minutes > 0){
             formatted_time = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)

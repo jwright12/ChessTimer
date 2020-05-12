@@ -71,7 +71,6 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_toRightOf="@id/white_time_logo"
-                        android:fontFamily="@font/monaco"
                         android:textColor="@color/Grey"
                         android:textStyle="bold"
                         android:layout_marginRight="5dp"
@@ -114,7 +113,6 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_toRightOf="@id/black_time_logo"
-                        android:fontFamily="@font/monaco"
                         android:textColor="@color/lightGrey"
                         android:textStyle="bold"
                         android:layout_marginRight="5dp"
@@ -157,7 +155,6 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_toRightOf="@id/white_increment_logo"
-                        android:fontFamily="@font/monaco"
                         android:textColor="@color/Grey"
                         android:textStyle="bold"
                         android:layout_marginRight="5dp"
@@ -201,7 +198,6 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_toRightOf="@id/white_delay_logo"
-                        android:fontFamily="@font/monaco"
                         android:textColor="@color/Grey"
                         android:textStyle="bold"
                         android:layout_marginRight="5dp"
@@ -245,7 +241,6 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_toRightOf="@id/black_delay_logo"
-                        android:fontFamily="@font/monaco"
                         android:textColor="@color/lightGrey"
                         android:textStyle="bold"
                         android:layout_marginRight="5dp"
@@ -288,7 +283,6 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_toRightOf="@id/black_increment_logo"
-                        android:fontFamily="@font/monaco"
                         android:textColor="@color/lightGrey"
                         android:textStyle="bold"
                         android:layout_marginRight="5dp"
@@ -296,7 +290,6 @@
                         android:text="15s" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
-
 
 
     </RelativeLayout>

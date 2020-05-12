@@ -58,13 +58,13 @@ class MainActivity : AppCompatActivity() {
         // Assign adapter click listener from TimerAdapter
         adapter.setOnItemClickListener(object: TimerAdapter.OnItemClickListener {
             override fun onItemClick(timer: Timer) {
-                // Store extras in intent
                 var intent = Intent(baseContext, MatchActivity::class.java)
-                intent.putExtra(MatchActivity.EXTRA_TIME, timer.durationWhite)
-                intent.putExtra(MatchActivity.EXTRA_DELAY, timer.delayWhite)
-                intent.putExtra(MatchActivity.EXTRA_INC , timer.incrementWhite)
-
-                // Start Match activity and pass this intent
+                intent.putExtra(MatchActivity.EXTRA_TIME_WHITE, timer.durationWhite)
+                intent.putExtra(MatchActivity.EXTRA_TIME_BLACK, timer.durationBlack)
+                intent.putExtra(MatchActivity.EXTRA_DELAY_WHITE, timer.delayWhite)
+                intent.putExtra(MatchActivity.EXTRA_DELAY_BLACK, timer.delayBlack)
+                intent.putExtra(MatchActivity.EXTRA_INC_WHITE, timer.incrementWhite)
+                intent.putExtra(MatchActivity.EXTRA_INC_BLACK, timer.incrementBlack)
                 startActivity(intent)
             }
         })
@@ -91,11 +91,9 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == ADD_TIMER_REQUEST && resultCode == Activity.RESULT_OK) {
-            val type = "Blitz"
-            val playCount = 0
 
+            val playCount = 0
             val newTimer = Timer(
-                // !! Ensures data is not null
                 data!!.getStringExtra(AddEditTimerRequest.EXTRA_TITLE),
                 data.getIntExtra(AddEditTimerRequest.EXTRA_WTIME, 5),
                 data.getIntExtra(AddEditTimerRequest.EXTRA_BTIME, 5),
@@ -105,14 +103,11 @@ class MainActivity : AppCompatActivity() {
                 data.getIntExtra(AddEditTimerRequest.EXTRA_BDELAY, 5),
                 playCount
             )
-
             timerViewModel.insert(newTimer)
-
-            Toast.makeText(this, "Timer saved", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(this, "Timer abandoned", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show()
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -23,22 +23,20 @@ class MatchActivity : AppCompatActivity() {
     private var click: MediaPlayer? = null
     private var chime: MediaPlayer? = null
 
-
-
-    // Need time for black or tags for special formats
     companion object {
-        const val EXTRA_TIME = "com.example.chess_time.EXTRA_TIME"
-        const val EXTRA_INC = "com.example.chess_time.EXTRA_INC"
-        const val EXTRA_DELAY = "com.example.chess_time.EXTRA_DELAY"
-        // Bronstein delay?
-        // FIDE settings?
+        const val EXTRA_TIME_WHITE = "com.example.chess_time.EXTRA_TIME_WHITE"
+        const val EXTRA_INC_WHITE = "com.example.chess_time.EXTRA_INC_WHITE"
+        const val EXTRA_DELAY_WHITE = "com.example.chess_time.EXTRA_DELAY_WHITE"
+        const val EXTRA_TIME_BLACK = "com.example.chess_time.EXTRA_TIME_BLACK"
+        const val EXTRA_INC_BLACK = "com.example.chess_time.EXTRA_INC_BLACK"
+        const val EXTRA_DELAY_BLACK = "com.example.chess_time.EXTRA_DELAY_BLACK"
     }
 
     // Timer objects for each player, initialized during onCreate
     var white: countdown_timer?= null
     var black: countdown_timer?= null
 
-    // Boolean helps us make UI logic based on if the game has been started
+    // Boolean helps us make UI logic
     var match_enabled = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,27 +54,23 @@ class MatchActivity : AppCompatActivity() {
         // Receive data and initialize view and timers
         val extras = getIntent().getExtras()
         if (null != extras) {
-            /*
-                These values will be in miliseconds, now they are in minutes and seconds.
-                Pretty print to textviews
-             */
 
-            // Display initial values
+            val wT = extras.getInt(EXTRA_TIME_WHITE).toLong()
+            val wI = extras.getInt(EXTRA_INC_WHITE).toLong()
+            val wD = extras.getInt(EXTRA_DELAY_WHITE).toLong()
+            val bT = extras.getInt(EXTRA_TIME_BLACK).toLong()
+            val bI = extras.getInt(EXTRA_INC_BLACK).toLong()
+            val bD = extras.getInt(EXTRA_DELAY_BLACK).toLong()
 
-            val time = extras.getInt(EXTRA_TIME).toLong()
-            val inc = extras.getInt(EXTRA_INC).toLong()
-            val delay = extras.getInt(EXTRA_DELAY).toLong()
-            var formatted_time = pretty_print(time*100000)
-            white_duration.setText(formatted_time)
-            black_duration.setText(formatted_time)
-            white_increment_text.setText(inc.toString())
-            black_increment_text.setText(inc.toString())
-            white_delay_text.setText(delay.toString())
-            black_delay_text.setText(delay.toString())
+            white_duration.setText(pretty_print(wT))
+            black_duration.setText(pretty_print(bT))
+            white_increment_text_view.setText(pretty_print(wI))
+            black_increment_text_view.setText(pretty_print(bI))
+            white_delay_text_view.setText(pretty_print(wD))
+            black_delay_text_view.setText(pretty_print(bD))
 
-            // Prepare countdown objects
-            white = countdown_timer(10000,5000,5000, true)
-            black = countdown_timer(10000,5000,5000, false)
+            white = countdown_timer(wT, wI, wD, true)
+            black = countdown_timer(bT, bI, bD, true)
         }
 
         // Rotate view
@@ -88,10 +82,12 @@ class MatchActivity : AppCompatActivity() {
         white_tile_image.setOnClickListener{
             // End white, start black, save resume time
             // What if this is clicked when it is not whites turn?
-            click?.start()
-            if(match_enabled) {
-                white!!.end_turn()
-                black!!.start_timer()
+            if(white_tile_image.isClickable) {
+                click?.start()
+                if (match_enabled) {
+                    white!!.end_turn()
+                    black!!.start_timer()
+                }
             }
         }
 
@@ -126,15 +122,18 @@ class MatchActivity : AppCompatActivity() {
     }
 
     fun pretty_print (time: Long): String {
-        val hours = (time/1000) / 3600
-        val minutes = (time/1000) / 60
+        val hours = time / 3600000
+        var minutes = time / 60000
         val seconds = (time/1000) % 60
         val formatted_time: String
 
-        if (hours > 0) {
+        if (hours >= 1) {
+            if (minutes >= 60) minutes = minutes % 60
             formatted_time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, seconds)
-        } else {
+        } else if (minutes > 0){
             formatted_time = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
+        } else {
+            formatted_time = String.format(Locale.getDefault(), "%02d"+"s", seconds)
         }
 
         return formatted_time
@@ -147,8 +146,6 @@ class MatchActivity : AppCompatActivity() {
             chime?.start()
             i++
         }
-
-
     }
 
     fun reset_match () {
@@ -156,8 +153,8 @@ class MatchActivity : AppCompatActivity() {
         // cancel clocks, reset timers to initial values, set FABs, animations, sounds
         white?.reset_timer()
         black?.reset_timer()
-        white_moves_text.setText("0")
-        black_moves_text.setText("0")
+        //white_moves_text.setText("0")
+        //black_moves_text.setText("0")
         black_tile_image.isClickable = true
         match_enabled = false
     }
@@ -175,21 +172,26 @@ class MatchActivity : AppCompatActivity() {
 
     }
 
-    // Start white timer, white tiler clickable, update FABs
+    // Start white timer, white tile clickable, update FABs
     fun start_match() {
         fab_layout_paused.isVisible = false
         pause_button.isVisible = true
+        white_tile_image.isClickable = true
         match_enabled = true
         white!!.start_timer()
     }
-
 
     fun resume_match() {
         fab_layout_paused.isVisible = false
         pause_button.isVisible = true
         if(black!!.my_turn) {
+            black_tile_image.isClickable = true
             black!!.start_timer()
-        } else white!!.start_timer()
+        } else {
+            white_tile_image.isClickable = true
+            white!!.start_timer()
+        }
+
     }
 
     /*
@@ -199,6 +201,7 @@ class MatchActivity : AppCompatActivity() {
            -- Respects match increments and delays
            -- Signals if it is one players turn or the others
      */
+
     inner class countdown_timer (var duration: Long, var increment: Long, var delay: Long,
                                  isWhite: Boolean) {
         // Match params
@@ -340,8 +343,8 @@ class MatchActivity : AppCompatActivity() {
                 output_time(resume_from!!)
                 moves++
 
-                if (isWhite) white_moves_text.setText(moves.toString())
-                else black_moves_text.setText(moves.toString())
+                if (isWhite) white_moves_text_view.setText(moves.toString())
+                else black_moves_text_view.setText(moves.toString())
 
                 delay_time = match_delay
             } else {
@@ -353,8 +356,8 @@ class MatchActivity : AppCompatActivity() {
 
                 // Increase move count, check if FIDE mode, check if Bronstein delay
                 moves++
-                if (isWhite) white_moves_text.setText(moves.toString())
-                else black_moves_text.setText(moves.toString())
+                if (isWhite) white_moves_text_view.setText(moves.toString())
+                else black_moves_text_view.setText(moves.toString())
 
                 stop_timer()
             }

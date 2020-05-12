@@ -26,6 +26,11 @@ class TimerRepository (application: Application) {
         val updateTimer = UpdateTimerAsyncTask(timerDao).execute(timer)
     }
 
+    fun incrementPlayCount(timer: Timer) {
+        val incrementPlayCount = IncrementPlayCountAsyncTask(timerDao).execute(timer)
+    }
+
+
     fun delete(timer: Timer) {
 
         val deleteTimer = DeleteTimerAsyncTask(timerDao).execute(timer)
@@ -76,6 +81,16 @@ class TimerRepository (application: Application) {
             override fun doInBackground(vararg p0: Timer?) {
                 timerDao.deleteAllTimers()
             }
+        }
+
+        private class IncrementPlayCountAsyncTask(timerDao: Timer_DAO) : AsyncTask<Timer, Unit, Unit>() {
+
+            val timerDao = timerDao
+
+            override fun doInBackground(vararg p0: Timer?) {
+                timerDao.incrementPlayCount(p0[0]!!)
+            }
+
         }
     }
 }

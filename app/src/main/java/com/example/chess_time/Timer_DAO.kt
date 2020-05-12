@@ -12,6 +12,9 @@ interface Timer_DAO {
     @Update
     fun update(timer: Timer)
 
+    @Update()
+    fun incrementPlayCount(timer: Timer)
+
     @Delete
     fun delete(timer: Timer)
 

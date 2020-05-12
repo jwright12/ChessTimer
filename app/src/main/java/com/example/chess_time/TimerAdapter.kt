@@ -3,6 +3,7 @@ package com.example.chess_time
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -34,6 +35,7 @@ class TimerAdapter : ListAdapter<Timer, TimerAdapter.TimerHolder> (DIFF_CALLBACK
 
     override fun onBindViewHolder(holder: TimerHolder, position: Int) {
         val currentTimer: Timer = getItem(position)
+
         holder.textViewMatchTitle.text = currentTimer.title
         holder.textViewWhiteDuration.text = pretty_print(currentTimer.durationWhite)
         holder.textViewBlackDuration.text = pretty_print(currentTimer.durationBlack)
@@ -41,6 +43,13 @@ class TimerAdapter : ListAdapter<Timer, TimerAdapter.TimerHolder> (DIFF_CALLBACK
         holder.textViewBlackIncrement.text = pretty_print(currentTimer.incrementBlack)
         holder.textViewWhiteDelay.text = pretty_print(currentTimer.delayWhite)
         holder.textViewBlackDelay.text = pretty_print(currentTimer.delayBlack)
+
+        var duration = currentTimer.durationWhite
+
+        if (300000 <= duration && duration <= 600000) holder.matchTypeIcon.setImageResource(R.drawable.blitz_24dp)
+        if (300000 > duration) holder.matchTypeIcon.setImageResource(R.drawable.bullet_24dp)
+        if (duration > 600000 && duration < 3600000) holder.matchTypeIcon.setImageResource(R.drawable.rapid_24dp)
+        if (duration >= 3600000) holder.matchTypeIcon.setImageResource(R.drawable.classical_24dp)
     }
 
     // Returns Timer object at the specified position
@@ -72,7 +81,7 @@ class TimerAdapter : ListAdapter<Timer, TimerAdapter.TimerHolder> (DIFF_CALLBACK
         var textViewBlackIncrement: TextView = itemView.black_increment_text_view
         var textViewWhiteDelay: TextView = itemView.white_delay_text_view
         var textViewBlackDelay: TextView = itemView.black_delay_text_view
-
+        var matchTypeIcon: ImageView = itemView.match_type_image_view
     }
 
     // Allows us to provide a timer object and forward data to the implementation in main
@@ -88,12 +97,12 @@ class TimerAdapter : ListAdapter<Timer, TimerAdapter.TimerHolder> (DIFF_CALLBACK
 
     fun pretty_print (time: Int): String {
         val hours = time / 3600000
-        var minutes = (time/1000) / 60
+        var minutes = time / 60000
         val seconds = (time/1000) % 60
         val formatted_time: String
 
-        if (hours > 0) {
-            if(minutes == 60) minutes = 0
+        if (hours >= 1) {
+            if (minutes >= 60) minutes = minutes % 60
             formatted_time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, seconds)
         } else if (minutes > 0){
             formatted_time = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
