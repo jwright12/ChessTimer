@@ -3,3 +3,4 @@
 - Supports basic durations, increments, and delays
 - Minimal design & feel
 - Simple implementation of MVVM architecture
+- Kotlin, LiveData, Room
