@@ -1,5 +1,5 @@
 # Chess Time
-- Create & save custom chess matches for over-the-board play
+- Create & save custom time configurations for over-the-board play
 - Supports basic durations, increments, and delays
 - Minimal design & feel
 - Simple MVVM implementation
